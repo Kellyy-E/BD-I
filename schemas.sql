@@ -1,5 +1,6 @@
 
--- -----------------------------------------------------------------------------
+CREATE DATABASE trabalhofinal
+-- ----------------------------------------------------------------------------
 -- DROP TABLES (Garantir reexecução limpa do script)
 
 DROP TABLE IF EXISTS inscricao_evento CASCADE;
