@@ -54,10 +54,10 @@ INSERT INTO obra (titulo, editora, ano_publicacao, idioma, num_paginas_ou_duraca
 
 -- 7. MAPEAMENTO MUITOS-PARA-MUITOS (Obras e Autores)
 INSERT INTO obra_autor (id_obra, id_author) VALUES
-(1, 1), -- Elmasri escreveu Sistemas de BD
-(1, 2), -- Navathe também escreveu Sistemas de BD
-(2, 3), -- Robert Martin escreveu Clean Code
-(3, 4); -- Silberschatz escreveu Sistemas Operacionais
+(1, 1),
+(1, 2), 
+(2, 3), 
+(3, 4); 
 
 -- 8. EBOOKS (Relacionamento 1:1 com Obra)
 INSERT INTO ebook (id_obra, link_acesso) VALUES
@@ -76,6 +76,10 @@ INSERT INTO dispositivo_acesso (tipo_dispositivo, sistema_operacional, status_di
 ('Computador', 'Ubuntu Linux 24.04', 'Disponível'),
 ('Computador', 'Ubuntu Linux 24.04', 'Em Manutenção'),
 ('Notebook', 'Windows 11', 'Em Uso');
+
+INSERT INTO uso_dispositivo (id_dispositivo, cpf_usuario, horario_inicio, horario_fim) VALUES
+(1, '11122233344', '2026-06-18 08:00:00', '2026-06-18 10:00:00'), -- Uso concluído
+(2, '22233344455', '2026-06-18 14:00:00', NULL);                  -- Dispositivo ainda em uso (horário fim nulo)
 
 -- 11. EMPRÉSTIMOS
 -- Nota: Cenários perfeitos para testar agregações, multas e junções externas
@@ -96,7 +100,7 @@ INSERT INTO evento (id_local, tipo_evento, data_realizacao, publico_alvo, tema_a
 
 -- 14. INSCRIÇÕES NOS EVENTOS (Amarração de Dados Essencial)
 INSERT INTO inscricao_evento (id_evento, cpf_participante, data_inscricao) VALUES
-(1, '11122233344', '2026-06-10'), -- Carlos se inscreveu no Evento 1
-(2, '11122233344', '2026-06-11'), -- Carlos se inscreveu no Evento 2 (Carlos foi a TODOS os eventos! - Atende a Divisão)
-(1, '22233344455', '2026-06-12'), -- Mariana se inscreveu apenas no Evento 1
-(2, '88899900011', '2026-06-14'); -- Participante Externo Marcos se inscreveu no Evento 2
+(1, '11122233344', '2026-06-10'), 
+(2, '11122233344', '2026-06-11'), 
+(1, '22233344455', '2026-06-12'),
+(2, '88899900011', '2026-06-14'); 

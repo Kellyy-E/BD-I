@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS professor CASCADE;
 DROP TABLE IF EXISTS aluno CASCADE;
 DROP TABLE IF EXISTS usuario_interno CASCADE;
 DROP TABLE IF EXISTS cargo_funcionario CASCADE;
+DROP TABLE IF EXISTS uso_dispositivo CASCADE;
 
 -- -----------------------------------------------------------------------------
 CRIAÇÃO DAS TABELAS E RESTRIÇÕES DE INTEGRIDADE
@@ -128,7 +129,7 @@ CREATE TABLE obra_autor (
 );
 
 -- MÓDULO DE CIRCULAÇÃO (EMPRÉSTIMOS) E EQUIPAMENTOS
-CREATE TABLE dispositivo_acesso (
+CREATE TABLE dispositivo (
     id_dispositivo SERIAL,
     tipo_dispositivo VARCHAR(20) NOT NULL,
     sistema_operacional VARCHAR(50),
@@ -136,6 +137,24 @@ CREATE TABLE dispositivo_acesso (
     CONSTRAINT pk_dispositivo_acesso PRIMARY KEY (id_dispositivo),
     CONSTRAINT chk_tipo_disp CHECK (tipo_dispositivo IN ('Computador', 'Notebook')),
     CONSTRAINT chk_status_disp CHECK (status_disponibilidade IN ('Disponível', 'Em Uso', 'Em Manutenção'))
+);
+
+CREATE TABLE uso_dispositivo (
+    id_acesso SERIAL,
+    id_dispositivo INT NOT NULL,
+    cpf_usuario CHAR(11) NOT NULL,
+    horario_inicio TIMESTAMP NOT NULL,
+    horario_fim TIMESTAMP,
+    
+    CONSTRAINT pk_uso_dispositivo PRIMARY KEY (id_acesso),
+    
+    CONSTRAINT fk_uso_dispositivo_disp FOREIGN KEY (id_dispositivo)
+        REFERENCES dispositivo_acesso(id_dispositivo) ON DELETE RESTRICT,
+        
+    CONSTRAINT fk_uso_dispositivo_usuario FOREIGN KEY (cpf_usuario)
+        REFERENCES usuario_interno(cpf) ON DELETE RESTRICT,
+        
+    CONSTRAINT chk_horarios_uso CHECK (horario_fim >= horario_inicio)
 );
 
 CREATE TABLE emprestimo (
@@ -169,12 +188,19 @@ CREATE TABLE evento (
     id_local INT NOT NULL,
     tipo_evento VARCHAR(30) NOT NULL,
     data_realizacao DATE NOT NULL,
+    horario_inicio TIME NOT NULL,       
+    horario_fim TIME NOT NULL,          
     publico_alvo VARCHAR(50),
     tema_abordado VARCHAR(150),
+    
     CONSTRAINT pk_evento PRIMARY KEY (id_evento),
-    CONSTRAINT fk_evento_local FOREIGN KEY (id_local) 
+    
+    CONSTRAINT fk_evento_local FOREIGN KEY (id_local)
         REFERENCES local_evento(id_local) ON DELETE RESTRICT,
-    CONSTRAINT chk_tipo_evento CHECK (tipo_evento IN ('Club de Leitura', 'Palestra'))
+        
+    CONSTRAINT chk_tipo_evento CHECK (tipo_evento IN ('Club de Leitura', 'Palestra')),
+    
+    CONSTRAINT chk_horarios_evento CHECK (horario_fim > horario_inicio)
 );
 
 CREATE TABLE inscricao_evento (
