@@ -14,6 +14,7 @@ INSERT INTO usuario_interno (cpf, nome_completo, email_institucional, telefone, 
 ('66677788899', 'Francisco José Costa', 'francisco.func@ufpi.edu.br', '89999667788', 'Bairro Junco'),
 ('77788899900', 'Antônia Alves Rocha', 'antonia.func@ufpi.edu.br', '89999778899', 'Bairro Aerolândia');
 
+
 -- 3. SUBCLASSES DE USUÁRIOS (Herança)
 INSERT INTO aluno (cpf, numero_matricula) VALUES 
 ('11122233344', '2023901234'),
@@ -77,11 +78,13 @@ INSERT INTO uso_dispositivo (id_dispositivo, cpf_usuario, horario_inicio, horari
 (2, '22233344455', '2026-06-18 14:00:00', NULL);                  -- Dispositivo ainda em uso (horário fim nulo)
 
 -- 11. EMPRÉSTIMOS
--- Nota: Cenários perfeitos para testar agregações, multas e junções externas
 INSERT INTO emprestimo (cpf_usuario, id_exemplar, data_retirada, data_prevista_devolucao, data_efetiva_devolucao, multa_atraso) VALUES
-('11122233344', 1, '2026-05-10', '2026-05-24', '2026-05-20', 0.00), -- Devolvido no prazo
-('11122233344', 2, '2026-06-01', '2026-06-15', NULL, 0.00),         -- Em andamento, sem atraso ainda
-('22233344455', 4, '2026-05-01', '2026-05-15', '2026-05-20', 15.50); -- Devolvido com atraso (Gera Multa)
+('11122233344', 1, '2026-05-10', '2026-05-24', '2026-05-20', 0.00), 
+('11122233344', 2, '2026-06-01', '2026-06-15', NULL, 0.00),        
+('22233344455', 4, '2026-05-01', '2026-05-15', '2026-05-20', 15.50),
+('22233344455', 1, '2026-02-10', '2026-02-24', '2026-02-20', 0.00), 
+('22233344455', 2, '2026-03-01', '2026-03-15', '2026-03-12', 0.00),
+('22233344455', 3, '2026-04-05', '2026-04-19', '2026-04-15', 0.00); 
 
 -- 12. INFRAESTRUTURA (Locais dos Eventos)
 INSERT INTO local_evento (capacidade_maxima, predio, andar, bloco) VALUES
@@ -94,10 +97,13 @@ INSERT INTO evento (id_local, tipo_evento, data_realizacao, horario_inicio, hora
 (2, 'Club de Leitura', '2026-06-25', '14:00:00', '16:00:00', 'Comunidade Geral', 'Análise Crítica da Obra Dom Casmurro de Machado de Assis'),
 (1, 'Palestra', '2026-06-26', '15:00:00', '17:30:00', 'Professores e Pesquisadores', 'O Impacto da Inteligência Artificial na Educação Superior');
 
--- 14. INSCRIÇÕES NOS EVENTOS (Amarração de Dados Essencial)
+-- 14. INSCRIÇÕES NOS EVENTOS 
 INSERT INTO inscricao_evento (id_evento, cpf_participante, data_inscricao) VALUES
 (1, '11122233344', '2026-06-10'), 
 (2, '11122233344', '2026-06-11'), 
 (1, '22233344455', '2026-06-12'),
 (2, '88899900011', '2026-06-14'), 
-(1, '44455566677', '2026-06-10');
+(1, '44455566677', '2026-06-10'),
+(3, '11122233344', '2026-06-15');
+
+TRUNCATE TABLE emprestimo RESTART IDENTITY CASCADE;
