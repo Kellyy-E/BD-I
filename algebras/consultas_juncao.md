@@ -1,3 +1,5 @@
+### -------- JUNÇÃO INTERNA --------
+
 ### 1. Histórico de Empréstimos Ativos de Alunos
 
 $$
@@ -49,3 +51,32 @@ $$
 $$
 \text{RESULTADO} \leftarrow \pi_{nome\_completo, nome\_cargo, turno\_work}(\text{JUNCAO\_ESCALA})
 $$
+
+### -------- JUNÇÃO EXTERNA A ESQUERDA --------
+
+### 1. Todos os utilizadores cadastrados e os seus empréstimos
+
+$$\text{JUNCAO\_USUARIOS} \leftarrow \text{usuario\_interno} \subset\bowtie_{cpf = cpf\_usuario} \text{emprestimo}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{nome\_completo, email\_institucional, id\_exemplar, data\_retirada}(\text{JUNCAO\_USUARIOS})$$
+
+
+### 2. Catálogo completo de obras e a sua disponibilidade virtual (E-books)
+
+$$\text{CATALOGO\_GERAL} \leftarrow \text{obra} \subset\bowtie_{id\_obra = id\_obra} \text{ebook}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{titulo, ano\_publicacao, link\_acesso}(\text{CATALOGO\_GERAL})$$
+
+
+### 3. Mapeamento de todos os espaços da universidade e os eventos lá agendados
+
+$$\text{MAPA\_ESPACOS} \leftarrow \text{local\_evento} \subset\bowtie_{id\_local = id\_local} \text{evento}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{predio, bloco, capacidade\_maxima, tema\_abordado, data\_realizacao}(\text{MAPA\_ESPACOS})$$
+
+
+### 4. Todos os dispositivos e o respectivo histórico de utilização
+
+$$\text{CONTROLE\_DISPOSITIVOS} \leftarrow \text{dispositivo\_acesso} \subset\bowtie_{id\_dispositivo = id\_dispositivo} \text{uso\_dispositivo}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{id\_dispositivo, tipo\_dispositivo, horario\_inicio, horario\_fim, cpf\_usuario}(\text{CONTROLE\_DISPOSITIVOS})$$
