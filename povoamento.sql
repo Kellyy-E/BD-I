@@ -1,8 +1,3 @@
--- =============================================================================
--- BANCO DE DADOS: BIBLIOTECA UNIVERSITÁRIA
--- SCRIPT DE POVOAMENTO / INSTANCIAÇÃO (02_povoamento.sql)
--- =============================================================================
-
 -- 1. CARGOS DOS FUNCIONÁRIOS
 INSERT INTO cargo_funcionario (nome_cargo) VALUES 
 ('Atendimento'),
@@ -94,13 +89,15 @@ INSERT INTO local_evento (capacidade_maxima, predio, andar, bloco) VALUES
 (30, 'Biblioteca Central', 'Térreo', 'Sala de Estudos 01');
 
 -- 13. EVENTOS
-INSERT INTO evento (id_local, tipo_evento, data_realizacao, publico_alvo, tema_abordado) VALUES
-(1, 'Palestra', '2026-06-24', 'Alunos de TI', 'Aplicações Avançadas de Álgebra Relacional e SQL'),
-(2, 'Club de Leitura', '2026-06-28', 'Comunidade Geral', 'Análise Prática de Código Limpo (Clean Code)');
+INSERT INTO evento (id_local, tipo_evento, data_realizacao, horario_inicio, horario_fim, publico_alvo, tema_abordado) VALUES
+(1, 'Palestra', '2026-06-24', '09:00:00', '11:00:00', 'Alunos de TI', 'Introdução à Álgebra Relacional e Bancos de Dados NoSQL'),
+(2, 'Club de Leitura', '2026-06-25', '14:00:00', '16:00:00', 'Comunidade Geral', 'Análise Crítica da Obra Dom Casmurro de Machado de Assis'),
+(1, 'Palestra', '2026-06-26', '15:00:00', '17:30:00', 'Professores e Pesquisadores', 'O Impacto da Inteligência Artificial na Educação Superior');
 
 -- 14. INSCRIÇÕES NOS EVENTOS (Amarração de Dados Essencial)
 INSERT INTO inscricao_evento (id_evento, cpf_participante, data_inscricao) VALUES
 (1, '11122233344', '2026-06-10'), 
 (2, '11122233344', '2026-06-11'), 
 (1, '22233344455', '2026-06-12'),
-(2, '88899900011', '2026-06-14'); 
+(2, '88899900011', '2026-06-14'), 
+(1, '44455566677', '2026-06-10');

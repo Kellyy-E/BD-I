@@ -62,14 +62,14 @@ CREATE TABLE professor (
 
 CREATE TABLE funcionario (
     cpf CHAR(11),
-    turno_work VARCHAR(20) NOT NULL,
+    turno VARCHAR(20) NOT NULL,
     id_cargo INT NOT NULL,
     CONSTRAINT pk_funcionario PRIMARY KEY (cpf),
     CONSTRAINT fk_funcionario_usuario FOREIGN KEY (cpf) 
         REFERENCES usuario_interno(cpf) ON DELETE CASCADE,
     CONSTRAINT fk_funcionario_cargo FOREIGN KEY (id_cargo) 
         REFERENCES cargo_funcionario(id_cargo) ON DELETE RESTRICT,
-    CONSTRAINT chk_turno CHECK (turno_work IN ('Manhã', 'Tarde', 'Noite'))
+    CONSTRAINT chk_turno CHECK (turno IN ('Manhã', 'Tarde', 'Noite'))
 );
 
 CREATE TABLE participante_external (
