@@ -40,7 +40,7 @@ ORDER BY nome_completo;
 
 #4 - CPFs de todos que tem vinculo ativo: emprestimo em aberto ou Inscrição em eventos futuros
 SELECT
-    cpf_usuario AS cpf, 'Emppestimo em aberto' AS vinculo
+    cpf_usuario AS cpf, 'Emprestimo em aberto' AS vinculo
 FROM emprestimo
 WHERE data_efetiva_devolucao IS NULL
 

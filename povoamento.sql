@@ -76,7 +76,8 @@ INSERT INTO dispositivo_acesso (tipo_dispositivo, sistema_operacional, status_di
 INSERT INTO uso_dispositivo (id_dispositivo, cpf_usuario, horario_inicio, horario_fim) VALUES
 (1, '11122233344', '2026-06-18 08:00:00', '2026-06-18 10:00:00'), 
 (1, '22233344455', '2026-06-15 08:00:00', '2026-06-15 10:00:00'), 
-(2, '22233344455', '2026-06-18 14:00:00', NULL);                  
+(2, '22233344455', '2026-06-18 14:00:00', NULL),
+(3, '66677788899','2026-06-15 08:00:00', '2026-06-15 10:00:00');         
 
 -- 11. EMPRÉSTIMOS
 INSERT INTO emprestimo (cpf_usuario, id_exemplar, data_retirada, data_prevista_devolucao, data_efetiva_devolucao, multa_atraso) VALUES
@@ -106,4 +107,5 @@ INSERT INTO inscricao_evento (id_evento, cpf_participante, data_inscricao) VALUE
 (2, '88899900011', '2026-06-14'), 
 (1, '44455566677', '2026-06-10'),
 (3, '11122233344', '2026-06-15');
+
 

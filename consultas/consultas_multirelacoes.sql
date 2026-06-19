@@ -28,9 +28,12 @@ SELECT
     ui.nome_completo AS nome_funcionario,
     cf.nome_cargo,
     da.tipo_dispositivo,
-    ud.horario_inicio
+    ud.horario_inicio,
+    ud.horario_fim
 FROM usuario_interno ui
 INNER JOIN funcionario func ON ui.cpf = func.cpf
 INNER JOIN cargo_funcionario cf ON func.id_cargo = cf.id_cargo
 INNER JOIN uso_dispositivo ud ON ui.cpf = ud.cpf_usuario
 INNER JOIN dispositivo_acesso da ON ud.id_dispositivo = da.id_dispositivo;
+
+
