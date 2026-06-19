@@ -1,7 +1,6 @@
 -- ******** CONSULTAS COM DADOS DE PELO MENOS 3 RELAÇÕES ********
 
 -- 1. Locais de evento e os temas das palestras/clubes neles realizados, com os autores associados ao tema
--- (cadeia: local_evento -> evento -> inscricao_evento -> usuario_interno, mostrando quem frequenta cada local)
 SELECT 
     le.predio,
     le.bloco,
