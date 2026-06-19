@@ -80,3 +80,47 @@ $$\text{RESULTADO} \leftarrow \pi_{predio, bloco, capacidade\_maxima, tema\_abor
 $$\text{CONTROLE\_DISPOSITIVOS} \leftarrow \text{dispositivo\_acesso} \subset\bowtie_{id\_dispositivo = id\_dispositivo} \text{uso\_dispositivo}$$
 
 $$\text{RESULTADO} \leftarrow \pi_{id\_dispositivo, tipo\_dispositivo, horario\_inicio, horario\_fim, cpf\_usuario}(\text{CONTROLE\_DISPOSITIVOS})$$
+
+
+
+### -------- JUNÇÃO EXERTERNA TOTAL --------
+### 1 - Obra e seus exemplares fisicos, inclusive obras sem exemplares e exemplares órfaos
+
+$$
+\text{OBRA\_EXEMPLAR} \leftarrow \text{obra} \;\text{FULL OUTER JOIN}_{id\_obra = id\_obra}\; \text{exemplar\_fisico}
+$$
+
+$$
+\text{RESULTADO} \leftarrow \pi_{titulo, editora, id\_exemplar, localizacao\_biblioteca, status\_disponibilidade}(\text{OBRA\_EXEMPLAR})
+$$
+
+### 2 - Eventos e suas inscrições inclusive eventos em inscritos
+
+$$
+\text{EVENTO\_INSCRICAO} \leftarrow \text{evento} \;\text{FULL OUTER JOIN}_{id\_evento = id\_evento}\; \text{inscricao\_evento}
+$$
+
+$$
+\text{RESULTADO} \leftarrow \pi_{id\_evento, tipo\_evento, tema\_abordado, data\_realizacao, cpf\_participante, data\_inscricao}(\text{EVENTO\_INSCRICAO})
+$$
+
+### 3 - usuários internos e inscrições em evento identificando quem nunca se inscreveu
+
+$$
+\text{USUARIO\_INSCRICAO} \leftarrow \text{usuario\_interno} \;\text{FULL OUTER JOIN}_{cpf = cpf\_participante}\; \text{inscricao\_evento}
+$$
+
+$$
+\text{RESULTADO} \leftarrow \pi_{nome\_completo, id\_evento, data\_inscricao, situacao}(\text{USUARIO\_INSCRICAO})
+$$
+
+
+### 4 - locais de evento e os eventos realizados inclusive locais sem evento agendado
+
+$$
+\text{LOCAL\_EVENTO} \leftarrow \text{local\_evento} \;\text{FULL OUTER JOIN}_{id\_local = id\_local}\; \text{evento}
+$$
+
+$$
+\text{RESULTADO} \leftarrow \pi_{predio, andar, bloco, capacidade\_maxima, tipo\_evento, data\_realizacao, publico\_alvo}(\text{LOCAL\_EVENTO})
+$$
