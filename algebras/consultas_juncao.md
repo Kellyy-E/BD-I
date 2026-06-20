@@ -82,8 +82,36 @@ $$\text{CONTROLE\_DISPOSITIVOS} \leftarrow \text{dispositivo\_acesso} \subset\bo
 $$\text{RESULTADO} \leftarrow \pi_{id\_dispositivo, tipo\_dispositivo, horario\_inicio, horario\_fim, cpf\_usuario}(\text{CONTROLE\_DISPOSITIVOS})$$
 
 
+### -------- JUNÇÃO EXTERNA A DIREITA --------
+### 1. Todos os exemplares físicos e o seu histórico de saídas
 
-### -------- JUNÇÃO EXERTERNA TOTAL --------
+$$\text{HISTORICO\_EXEMPLARES} \leftarrow \text{emprestimo} \bowtie\supset_{id\_exemplar = id\_exemplar} \text{exemplar\_fisico}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{data\_retirada, data\_prevista\_devolucao, id\_exemplar, localizacao\_biblioteca, status\_disponibilidade}(\text{HISTORICO\_EXEMPLARES})$$
+
+### 2. Todos os Autores cadastrados e as obras associadas a eles
+
+$$\text{OBRAS\_AUTORES} \leftarrow \text{obra} \bowtie_{id\_obra = id\_obra} \text{obra\_autor}$$
+
+$$\text{TODOS\_AUTORES} \leftarrow \text{OBRAS\_AUTORES} \bowtie\supset_{id\_author = id\_author} \text{autor}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{titulo, ano\_publicacao, nome\_autor}(\text{TODOS\_AUTORES})$$
+
+
+### 3. Todos os Convidados Externos e as suas inscrições confirmadas
+
+$$\text{INSCRICOES\_CONVIDADOS} \leftarrow \text{inscricao\_evento} \bowtie\supset_{cpf\_participante = cpf} \text{participante\_external}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{id\_evento, data\_inscricao, nome\_completo, instituicao\_origem}(\text{INSCRICOES\_CONVIDADOS})$$
+
+
+### 4. Quadro de Eventos Cadastrados e o Volume de Inscrições
+$$\text{EVENTOS\_INSCRICOES} \leftarrow \text{inscricao\_evento} \bowtie\supset_{id\_evento = id\_evento} \text{evento}$$
+
+$$\text{RESULTADO} \leftarrow \pi_{tema\_abordado, tipo\_evento, data\_realizacao, cpf\_participante, data\_inscricao}(\text{EVENTOS\_INSCRICOES})$$
+
+
+### -------- JUNÇÃO EXTERNA TOTAL --------
 ### 1 - Obra e seus exemplares fisicos, inclusive obras sem exemplares e exemplares órfaos
 
 $$

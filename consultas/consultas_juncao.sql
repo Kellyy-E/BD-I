@@ -90,21 +90,51 @@ FROM dispositivo_acesso disp
 LEFT JOIN uso_dispositivo ud ON disp.id_dispositivo = ud.id_dispositivo;
 
 --************************************
--- ******** JUNÇÃO A DIREITA *********
+[-- ******** JUNÇÃO EXTERNA A DIREITA *********
+
+-- 1. Todos os exemplares físicos e o seu histórico de saídas
+SELECT 
+    emp.data_retirada,
+    emp.data_prevista_devolucao,
+    exf.id_exemplar,
+    exf.localizacao_biblioteca,
+    exf.status_disponibilidade
+FROM emprestimo emp
+RIGHT JOIN exemplar_fisico exf ON emp.id_exemplar = exf.id_exemplar;
 
 
+-- 2. Todos os Autores cadastrados e as obras associadas a eles
+SELECT 
+    ob.titulo AS titulo_obra,
+    ob.ano_publicacao,
+    au.nome_autor
+FROM obra ob
+INNER JOIN obra_autor oa ON ob.id_obra = oa.id_obra
+RIGHT JOIN autor au ON oa.id_author = au.id_author;
 
+-- 3. Todos os Convidados Externos e as suas inscrições confirmadas
+SELECT 
+    ie.id_evento,
+    ie.data_inscricao,
+    pe.nome_completo AS nome_visitante,
+    pe.instituicao_origem
+FROM inscricao_evento ie
+RIGHT JOIN participante_external pe ON ie.cpf_participante = pe.cpf;
 
+-- 4. Quadro de Eventos Cadastrados e o Volume de Inscrições (Incluindo eventos vazios)
+SELECT 
+    ev.tema_abordado AS tema_do_evento,
+    ev.tipo_evento,
+    ev.data_realizacao,
+    ie.cpf_participante AS cpf_do_inscrito,
+    ie.data_inscricao
+FROM inscricao_evento ie
+RIGHT JOIN evento ev ON ie.id_evento = ev.id_evento;
 
-
-
-
-
-
-
+]
 -- ********JUNÇÃO EXTERNA TOTAL*********
 
-#1 - Obra e seus exemplares fisicos, inclusive obras sem exemplares e exemplares órfaos
+-- 1 - Obra e seus exemplares fisicos, inclusive obras sem exemplares e exemplares órfaos
 
 SELECT
     o.titulo, o.editora, ef.id_exemplar, ef.localizacao_biblioteca,
