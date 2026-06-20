@@ -62,8 +62,8 @@ INSERT INTO ebook (id_obra, link_acesso) VALUES
 -- 9. EXEMPLARES FÍSICOS (Inventário das Obras Físicas)
 INSERT INTO exemplar_fisico (id_obra, localizacao_biblioteca, status_disponibilidade) VALUES
 (1, 'Estante 04, Prateleira B', 'Disponível'),
-(1, 'Estante 04, Prateleira B', 'Emprestado'), -- Usado para testar histórico de empréstimos
-(1, 'Estante 04, Prateleira C', 'Em Manutenção'),
+(1, 'Estante 04, Prateleira B', 'Emprestado'), 
+(1, 'Estante 04, Prateleira C', 'Emprestado'),
 (3, 'Estante 02, Prateleira A', 'Disponível'),
 (4, 'Estante 01, Prateleira D', 'Disponível');
 
@@ -88,6 +88,7 @@ INSERT INTO emprestimo (cpf_usuario, id_exemplar, data_retirada, data_prevista_d
 ('22233344455', 2, '2026-03-01', '2026-03-15', '2026-03-12', 0.00),
 ('22233344455', 3, '2026-04-05', '2026-04-19', '2026-04-15', 0.00); 
 
+
 -- 12. INFRAESTRUTURA (Locais dos Eventos)
 INSERT INTO local_evento (capacidade_maxima, predio, andar, bloco) VALUES
 (50, 'Bloco de Sistemas', '1º Andar', 'Auditório B'),
@@ -107,5 +108,6 @@ INSERT INTO inscricao_evento (id_evento, cpf_participante, data_inscricao) VALUE
 (2, '88899900011', '2026-06-14'), 
 (1, '44455566677', '2026-06-10'),
 (3, '11122233344', '2026-06-15');
+
 
 

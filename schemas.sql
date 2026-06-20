@@ -194,12 +194,9 @@ CREATE TABLE evento (
     tema_abordado VARCHAR(150),
     
     CONSTRAINT pk_evento PRIMARY KEY (id_evento),
-    
     CONSTRAINT fk_evento_local FOREIGN KEY (id_local)
         REFERENCES local_evento(id_local) ON DELETE RESTRICT,
-        
     CONSTRAINT chk_tipo_evento CHECK (tipo_evento IN ('Club de Leitura', 'Palestra')),
-    
     CONSTRAINT chk_horarios_evento CHECK (horario_fim > horario_inicio)
 );
 
