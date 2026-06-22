@@ -1,14 +1,13 @@
-
 CREATE DATABASE trabalhofinal
 -- ----------------------------------------------------------------------------
--- DROP TABLES (Garantir reexecução limpa do script)
+-- DROP TABLES
 
 DROP TABLE IF EXISTS inscricao_evento CASCADE;
-DROP TABLE IF EXISTS participante_external CASCADE;
+DROP TABLE IF EXISTS participante_externo CASCADE;
 DROP TABLE IF EXISTS evento CASCADE;
 DROP TABLE IF EXISTS local_evento CASCADE;
 DROP TABLE IF EXISTS emprestimo CASCADE;
-DROP TABLE IF EXISTS dispositivo_acesso CASCADE;
+DROP TABLE IF EXISTS dispositivo CASCADE;
 DROP TABLE IF EXISTS obra_autor CASCADE;
 DROP TABLE IF EXISTS autor CASCADE;
 DROP TABLE IF EXISTS exemplar_fisico CASCADE;
@@ -22,7 +21,7 @@ DROP TABLE IF EXISTS cargo_funcionario CASCADE;
 DROP TABLE IF EXISTS uso_dispositivo CASCADE;
 
 -- -----------------------------------------------------------------------------
-CRIAÇÃO DAS TABELAS E RESTRIÇÕES DE INTEGRIDADE
+--CRIAÇÃO DAS TABELAS E RESTRIÇÕES DE INTEGRIDADE
 
 -- MÓDULO DE USUÁRIOS, CARGOS E INSCRIÇÕES
 CREATE TABLE cargo_funcionario (
@@ -72,7 +71,7 @@ CREATE TABLE funcionario (
     CONSTRAINT chk_turno CHECK (turno IN ('Manhã', 'Tarde', 'Noite'))
 );
 
-CREATE TABLE participante_external (
+CREATE TABLE participante_externo (
     cpf CHAR(11),
     chave_convite_unica VARCHAR(50) NOT NULL,
     nome_completo VARCHAR(150) NOT NULL,
@@ -113,19 +112,19 @@ CREATE TABLE exemplar_fisico (
 );
 
 CREATE TABLE autor (
-    id_author SERIAL,
+    id_autor SERIAL,
     nome_autor VARCHAR(100) NOT NULL,
-    CONSTRAINT pk_autor PRIMARY KEY (id_author)
+    CONSTRAINT pk_autor PRIMARY KEY (id_autor)
 );
 
 CREATE TABLE obra_autor (
     id_obra INT,
-    id_author INT,
-    CONSTRAINT pk_obra_autor PRIMARY KEY (id_obra, id_author),
+    id_autor INT,
+    CONSTRAINT pk_obra_autor PRIMARY KEY (id_obra, id_autor),
     CONSTRAINT fk_obra_autor_obra FOREIGN KEY (id_obra) 
         REFERENCES obra(id_obra) ON DELETE CASCADE,
-    CONSTRAINT fk_obra_autor_autor FOREIGN KEY (id_author) 
-        REFERENCES autor(id_author) ON DELETE CASCADE
+    CONSTRAINT fk_obra_autor_autor FOREIGN KEY (id_autor) 
+        REFERENCES autor(id_autor) ON DELETE CASCADE
 );
 
 -- MÓDULO DE CIRCULAÇÃO (EMPRÉSTIMOS) E EQUIPAMENTOS
@@ -134,7 +133,7 @@ CREATE TABLE dispositivo (
     tipo_dispositivo VARCHAR(20) NOT NULL,
     sistema_operacional VARCHAR(50),
     status_disponibilidade VARCHAR(20) NOT NULL,
-    CONSTRAINT pk_dispositivo_acesso PRIMARY KEY (id_dispositivo),
+    CONSTRAINT pk_dispositivo PRIMARY KEY (id_dispositivo),
     CONSTRAINT chk_tipo_disp CHECK (tipo_dispositivo IN ('Computador', 'Notebook')),
     CONSTRAINT chk_status_disp CHECK (status_disponibilidade IN ('Disponível', 'Em Uso', 'Em Manutenção'))
 );
@@ -149,7 +148,7 @@ CREATE TABLE uso_dispositivo (
     CONSTRAINT pk_uso_dispositivo PRIMARY KEY (id_acesso),
     
     CONSTRAINT fk_uso_dispositivo_disp FOREIGN KEY (id_dispositivo)
-        REFERENCES dispositivo_acesso(id_dispositivo) ON DELETE RESTRICT,
+        REFERENCES dispositivo(id_dispositivo) ON DELETE RESTRICT,
         
     CONSTRAINT fk_uso_dispositivo_usuario FOREIGN KEY (cpf_usuario)
         REFERENCES usuario_interno(cpf) ON DELETE RESTRICT,
@@ -196,7 +195,7 @@ CREATE TABLE evento (
     CONSTRAINT pk_evento PRIMARY KEY (id_evento),
     CONSTRAINT fk_evento_local FOREIGN KEY (id_local)
         REFERENCES local_evento(id_local) ON DELETE RESTRICT,
-    CONSTRAINT chk_tipo_evento CHECK (tipo_evento IN ('Club de Leitura', 'Palestra')),
+    CONSTRAINT chk_tipo_evento CHECK (tipo_evento IN ('Clube de Leitura', 'Palestra')),
     CONSTRAINT chk_horarios_evento CHECK (horario_fim > horario_inicio)
 );
 

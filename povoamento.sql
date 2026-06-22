@@ -1,3 +1,15 @@
+TRUNCATE TABLE 
+    usuario_interno, 
+    autor, 
+    obra, 
+    local_evento, 
+    evento,
+    cargo_funcionario,
+    participante_externo,
+    inscricao_evento,
+    dispositivo
+RESTART IDENTITY CASCADE;
+
 INSERT INTO cargo_funcionario (nome_cargo) VALUES 
 ('Atendimento'),
 ('Catalogação'),
@@ -22,43 +34,51 @@ INSERT INTO professor (cpf, siape) VALUES
 ('44455566677', '1004321'),
 ('55566677788', '2008765');
 
-INSERT INTO funcionario (cpf, turno_work, id_cargo) VALUES 
-('66677788899', 'Manhã', 1), -- Atendimento
-('77788899900', 'Tarde', 2); -- Catalogação
+INSERT INTO funcionario (cpf, turno, id_cargo) VALUES 
+('66677788899', 'Manhã', 1), 
+('77788899900', 'Tarde', 2); 
 
-INSERT INTO participante_external (cpf, chave_convite_unica, nome_completo, email_contato, instituicao_origem) VALUES
-('88899900011', 'CONV-24-XTZ', 'Marcos Viana Oliveira', 'marcos.viana@gmail.com', 'IFPI Campus Picos'),
-('99900011122', 'CONV-24-ABC', 'Juliana de Castro Reis', 'ju.castro@hotmail.com', 'UESPI');
+INSERT INTO participante_externo (cpf, chave_convite_unica, nome_completo, email_contato, instituicao_origem) VALUES
+('88899900011', 'CONV001', 'Marcos Viana Oliveira', 'marcos.viana@gmail.com', 'IFPI Campus Picos'),
+('99900011122', 'CONV002', 'Juliana de Castro Reis', 'ju.castro@hotmail.com', 'UESPI');
 
-INSERT INTO autor (nome_autor) VALUES
-('Ramez Elmasri'),
-('Shamkant B. Navathe'),
-('Robert C. Martin'),
-('Abraham Silberschatz');
 
-INSERT INTO obra (titulo, editora, ano_publicacao, idioma, num_paginas_ou_duracao) VALUES
-('Sistemas de Banco de Dados', 'Pearson', 2011, 'Português', 700),
-('Clean Code', 'Alta Books', 2009, 'Inglês', 464),
-('Sistemas Operacionais Modernos', 'Pearson', 2015, 'Português', 600),
-('Algoritmos e Estruturas de Dados', 'LTC', 2018, 'Português', 400);
+INSERT INTO autor (id_autor, nome_autor) VALUES 
+(1, 'José Silva'),
+(2, 'Maria Fernandes'),
+(3, 'Carlos Drummond Fictício'),
+(4, 'Ana Souza');
 
-INSERT INTO obra_autor (id_obra, id_author) VALUES
-(1, 1),
-(1, 2), 
-(2, 3), 
-(3, 4); 
+INSERT INTO obra (id_obra, titulo, editora, ano_publicacao, idioma) VALUES 
+(1, 'Os 3 porquinhos bonitos', 'Editora Floresta', 2024, 'Português'),
+(2, 'A Revolta dos Dados Nulos', 'Livros para Ler', 2023, 'Português'),
+(3, 'O Mistério da Chave Estrangeira', 'Editora Relacional', 2020, 'Português'),
+(4, 'O Senhor dos Anéis de Repetição', 'Livros para Ler', 2022, 'Português');
+
+INSERT INTO obra_autor (id_obra, id_autor) VALUES 
+(1, 1), 
+(2, 2), 
+(3, 3), 
+(4, 4), 
+(4, 1); 
+
 
 INSERT INTO ebook (id_obra, link_acesso) VALUES
-(2, 'https://biblioteca.ufpi.br/ebooks/cleancode.pdf');
+(1, 'https://biblioteca.ufpi.br/ebooks'),
+(2, 'https://biblioteca.ufpi.br/ebooks');
+
+
 
 INSERT INTO exemplar_fisico (id_obra, localizacao_biblioteca, status_disponibilidade) VALUES
 (1, 'Estante 04, Prateleira B', 'Disponível'),
-(1, 'Estante 04, Prateleira B', 'Emprestado'), 
-(1, 'Estante 04, Prateleira C', 'Emprestado'),
+(1, 'Estante 04, Prateleira B', 'Disponível'), 
+(1, 'Estante 04, Prateleira C', 'Disponível'),
 (3, 'Estante 02, Prateleira A', 'Disponível'),
-(4, 'Estante 01, Prateleira D', 'Disponível');
+(4, 'Estante 01, Prateleira D', 'Em Manutenção');
 
-INSERT INTO dispositivo_acesso (tipo_dispositivo, sistema_operacional, status_disponibilidade) VALUES
+
+
+INSERT INTO dispositivo (tipo_dispositivo, sistema_operacional, status_disponibilidade) VALUES
 ('Computador', 'Ubuntu Linux 24.04', 'Disponível'),
 ('Computador', 'Ubuntu Linux 24.04', 'Em Manutenção'),
 ('Notebook', 'Windows 11', 'Em Uso');
@@ -71,25 +91,30 @@ INSERT INTO uso_dispositivo (id_dispositivo, cpf_usuario, horario_inicio, horari
 
 INSERT INTO emprestimo (cpf_usuario, id_exemplar, data_retirada, data_prevista_devolucao, data_efetiva_devolucao, multa_atraso) VALUES
 ('11122233344', 1, '2026-05-10', '2026-05-24', '2026-05-20', 0.00), 
-('11122233344', 2, '2026-06-01', '2026-06-15', NULL, 0.00),        
+('11122233344', 2, '2026-06-01', '2026-06-15', '2026-06-15', 0.00),
+('11122233344', 3, '2026-06-01', '2026-06-15', NULL, 0.00),        
 ('22233344455', 4, '2026-05-01', '2026-05-15', '2026-05-20', 0.00),
 ('22233344455', 1, '2026-02-10', '2026-02-24', '2026-02-20', 0.00), 
-('22233344455', 2, '2026-03-01', '2026-03-15', '2026-03-12', 0.00),
-('22233344455', 3, '2026-04-05', '2026-04-19', '2026-04-15', 0.00); 
+('22233344455', 3, '2026-04-05', '2026-04-19', '2026-04-15', 0.00);
 
 
 INSERT INTO local_evento (capacidade_maxima, predio, andar, bloco) VALUES
 (50, 'Bloco de Sistemas', '1º Andar', 'Auditório B'),
-(30, 'Biblioteca Central', 'Térreo', 'Sala de Estudos 01');
+(30, 'Biblioteca Central', 'Térreo', 'Sala de Estudos 01'),
+(25, 'Biblioteca Central', 'Térreo', 'Sala de Estudos 02');
+
 
 INSERT INTO evento (id_local, tipo_evento, data_realizacao, horario_inicio, horario_fim, publico_alvo, tema_abordado) VALUES
 (1, 'Palestra', '2026-06-24', '09:00:00', '11:00:00', 'Alunos de TI', 'Introdução à Álgebra Relacional e Bancos de Dados NoSQL'),
-(2, 'Club de Leitura', '2026-06-25', '14:00:00', '16:00:00', 'Comunidade Geral', 'Análise Crítica da Obra Dom Casmurro de Machado de Assis'),
-(1, 'Palestra', '2026-06-26', '15:00:00', '17:30:00', 'Professores e Pesquisadores', 'O Impacto da Inteligência Artificial na Educação Superior');
+(2, 'Clube de Leitura', '2026-06-25', '14:00:00', '16:00:00', 'Comunidade Geral', 'Análise Crítica da Obra Dom Casmurro de Machado de Assis'),
+(1, 'Palestra', '2026-06-26', '15:00:00', '17:30:00', 'Professores e Pesquisadores', 'O Impacto da Inteligência Artificial na Educação Superior'),
+(1, 'Palestra', '2026-06-26', '18:00:00', '19:30:00', 'Professores e Pesquisadores', 'Metodologias Ativas de Ensino');
+
 
 INSERT INTO inscricao_evento (id_evento, cpf_participante, data_inscricao) VALUES
 (1, '11122233344', '2026-06-10'), 
-(2, '11122233344', '2026-06-11'), 
+(2, '11122233344', '2026-06-11'),
+(4, '11122233344', '2026-06-11'),  
 (1, '22233344455', '2026-06-12'),
 (2, '88899900011', '2026-06-14'), 
 (1, '44455566677', '2026-06-10'),

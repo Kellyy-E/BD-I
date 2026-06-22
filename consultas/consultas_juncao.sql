@@ -21,7 +21,7 @@ SELECT
     exf.id_exemplar,
     exf.localizacao_biblioteca
 FROM autor au
-INNER JOIN obra_autor oa ON au.id_author = oa.id_author
+INNER JOIN obra_autor oa ON au.id_autor = oa.id_autor
 INNER JOIN obra ob ON oa.id_obra = ob.id_obra
 INNER JOIN exemplar_fisico exf ON ob.id_obra = exf.id_obra
 WHERE exf.status_disponibilidade = 'Em Manutenção';
@@ -86,11 +86,11 @@ SELECT
     ud.horario_inicio AS acesso_inicio,
     ud.horario_fim AS acesso_fim,
     ud.cpf_usuario AS cpf_do_aluno
-FROM dispositivo_acesso disp
+FROM dispositivo disp
 LEFT JOIN uso_dispositivo ud ON disp.id_dispositivo = ud.id_dispositivo;
 
 --************************************
-[-- ******** JUNÇÃO EXTERNA A DIREITA *********
+-- ******** JUNÇÃO EXTERNA A DIREITA *********
 
 -- 1. Todos os exemplares físicos e o seu histórico de saídas
 SELECT 
@@ -110,7 +110,7 @@ SELECT
     au.nome_autor
 FROM obra ob
 INNER JOIN obra_autor oa ON ob.id_obra = oa.id_obra
-RIGHT JOIN autor au ON oa.id_author = au.id_author;
+RIGHT JOIN autor au ON oa.id_autor = au.id_autor;
 
 -- 3. Todos os Convidados Externos e as suas inscrições confirmadas
 SELECT 
@@ -119,7 +119,7 @@ SELECT
     pe.nome_completo AS nome_visitante,
     pe.instituicao_origem
 FROM inscricao_evento ie
-RIGHT JOIN participante_external pe ON ie.cpf_participante = pe.cpf;
+RIGHT JOIN participante_externo pe ON ie.cpf_participante = pe.cpf;
 
 -- 4. Quadro de Eventos Cadastrados e o Volume de Inscrições (Incluindo eventos vazios)
 SELECT 
@@ -131,7 +131,7 @@ SELECT
 FROM inscricao_evento ie
 RIGHT JOIN evento ev ON ie.id_evento = ev.id_evento;
 
-]
+
 -- ********JUNÇÃO EXTERNA TOTAL*********
 
 -- 1 - Obra e seus exemplares fisicos, inclusive obras sem exemplares e exemplares órfaos

@@ -18,7 +18,7 @@ SELECT
     a.nome_autor AS autor, o.idioma AS idioma,
     COUNT(oa.id_obra) AS total_obras
 FROM autor a  
-JOIN obra_autor oa ON a.id_author = oa.id_author
+JOIN obra_autor oa ON a.id_autor = oa.id_autor
 JOIN obra o ON oa.id_obra = o.id_obra
 GROUP BY a.nome_autor, o.idioma
 ORDER BY autor, idioma;
@@ -26,11 +26,11 @@ ORDER BY autor, idioma;
 #3 - Obras com mais de um autor cadastrado na tabela obra_autor
 SELECT
     o.titulo, o.editora, o.ano_publicacao,
-    COUNT(oa.id_author) AS total_autores
+    COUNT(oa.id_autor) AS total_autores
 FROM obra o 
 INNER JOIN obra_autor oa ON o.id_obra = oa.id_obra
 GROUP BY o.id_obra, o.titulo, o.editora, o.ano_publicacao
-HAVING COUNT(oa.id_author) > 1
+HAVING COUNT(oa.id_autor) > 1
 ORDER BY total_autores DESC;
 
 #4 - total de inscrições por evento e tipo, como nome do local
@@ -52,7 +52,7 @@ INNER JOIN exemplar_fisico ef ON o.id_obra = ef.id_obra
 GROUP BY o.titulo, ef.status_disponibilidade
 ORDER BY o.titulo, ef.status_disponibilidade;
 
-#6 -apacidade total e media dos locais de evento agrupados por predio
+#6 -Capacidades locais de evento agrupados por predio
 SELECT
     le.predio,
     COUNT(le.id_local)                     AS total_salas,

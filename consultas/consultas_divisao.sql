@@ -14,7 +14,7 @@ WHERE NOT EXISTS (
     )
 );
 
--- 2. Usuários que pegaram empréstimo de TODOS os exemplares de uma obra
+-- 2. Usuários que pegaram empréstimo de TODOS os exemplares da obra "Os 3 Porquinhos Bonitos"
 
 SELECT ui.cpf, ui.nome_completo
 FROM usuario_interno ui

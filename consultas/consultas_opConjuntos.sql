@@ -10,7 +10,7 @@ UNION
 
 SELECT
     pe.cpf, pe.nome_completo, 'Externo' AS tipo_participante
-FROM participante_external pe 
+FROM participante_externo pe 
 INNER JOIN inscricao_evento ie ON pe.cpf = ie.cpf_participante
 
 ORDER BY tipo_participante, nome_completo;
