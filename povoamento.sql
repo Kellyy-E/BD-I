@@ -77,7 +77,6 @@ INSERT INTO exemplar_fisico (id_obra, localizacao_biblioteca, status_disponibili
 (4, 'Estante 01, Prateleira D', 'Em Manutenção');
 
 
-
 INSERT INTO dispositivo (tipo_dispositivo, sistema_operacional, status_disponibilidade) VALUES
 ('Computador', 'Ubuntu Linux 24.04', 'Disponível'),
 ('Computador', 'Ubuntu Linux 24.04', 'Em Manutenção'),
@@ -90,13 +89,16 @@ INSERT INTO uso_dispositivo (id_dispositivo, cpf_usuario, horario_inicio, horari
 (3, '66677788899','2026-06-15 08:00:00', '2026-06-15 10:00:00');         
 
 INSERT INTO emprestimo (cpf_usuario, id_exemplar, data_retirada, data_prevista_devolucao, data_efetiva_devolucao, multa_atraso) VALUES
-('11122233344', 1, '2026-05-10', '2026-05-24', '2026-05-20', 0.00), 
-('11122233344', 2, '2026-06-01', '2026-06-15', '2026-06-15', 0.00),
-('11122233344', 3, '2026-06-01', '2026-06-15', NULL, 0.00),        
-('22233344455', 4, '2026-05-01', '2026-05-15', '2026-05-20', 0.00),
-('22233344455', 1, '2026-02-10', '2026-02-24', '2026-02-20', 0.00), 
-('22233344455', 3, '2026-04-05', '2026-04-19', '2026-04-15', 0.00);
+('11122233344', 1, '2026-05-10', '2026-05-24', '2026-05-20', NULL), 
+('11122233344', 2, '2026-06-01', '2026-06-15', '2026-06-15', NULL),
+('11122233344', 3, '2026-06-01', '2026-06-15', NULL, NULL),        
+('22233344455', 4, '2026-05-01', '2026-05-15', '2026-05-11', NULL),
+('22233344455', 1, '2026-02-10', '2026-02-24', NULL, NULL);
 
+-- Atualizando emprestimo que terá multa
+UPDATE emprestimo 
+SET data_efetiva_devolucao = '2026-02-26'
+WHERE id_emprestimo = 5;
 
 INSERT INTO local_evento (capacidade_maxima, predio, andar, bloco) VALUES
 (50, 'Bloco de Sistemas', '1º Andar', 'Auditório B'),
