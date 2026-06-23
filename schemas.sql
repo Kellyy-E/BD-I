@@ -1,6 +1,5 @@
 CREATE DATABASE trabalhofinal
--- ----------------------------------------------------------------------------
--- DROP TABLES
+
 
 DROP TABLE IF EXISTS inscricao_evento CASCADE;
 DROP TABLE IF EXISTS participante_externo CASCADE;
@@ -20,8 +19,6 @@ DROP TABLE IF EXISTS usuario_interno CASCADE;
 DROP TABLE IF EXISTS cargo_funcionario CASCADE;
 DROP TABLE IF EXISTS uso_dispositivo CASCADE;
 
--- -----------------------------------------------------------------------------
---CRIAÇÃO DAS TABELAS E RESTRIÇÕES DE INTEGRIDADE
 
 -- MÓDULO DE USUÁRIOS, CARGOS E INSCRIÇÕES
 CREATE TABLE cargo_funcionario (
