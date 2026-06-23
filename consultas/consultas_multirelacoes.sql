@@ -36,4 +36,19 @@ INNER JOIN cargo_funcionario cf ON func.id_cargo = cf.id_cargo
 INNER JOIN uso_dispositivo ud ON ui.cpf = ud.cpf_usuario
 INNER JOIN dispositivo da ON ud.id_dispositivo = da.id_dispositivo;
 
+-- 4. Participantes externos, os eventos em que estão inscritos e o local do evento
+
+SELECT
+    pe.nome_completo,
+    pe.instituicao_origem,
+    ev.tipo_evento,
+    ev.tema_abordado,
+    le.predio,
+    le.bloco
+FROM participante_externo pe
+INNER JOIN inscricao_evento ie ON pe.cpf = ie.cpf_participante
+INNER JOIN evento ev ON ie.id_evento = ev.id_evento
+INNER JOIN local_evento le ON ev.id_local = le.id_local
+ORDER BY pe.nome_completo;
+
 
